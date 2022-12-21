@@ -1,0 +1,105 @@
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class table
+{
+private:
+	T* wsk;
+	int size ;
+	int capacity; //size
+
+public:
+
+	void add_value(T value);
+	void show();
+	void rem();
+	void chan( int index,T value );
+	void bubble();
+	table()
+	{
+		size = 0;
+		capacity = 1;
+		wsk = new T[capacity];
+
+	}
+};
+template <typename T>
+
+void table<T>::add_value(T value)
+{
+	if (size == capacity)
+	{
+		capacity = capacity * 2;
+		T* temp = new T [capacity];
+		for (int i = 0; i < size; i++)
+		{
+			temp[i] = wsk[i];
+		}
+		wsk = new T[capacity];
+		for (int j = 0; j < size; j++)
+		{
+			wsk[j] = temp[j];
+			
+		}
+		delete[] temp;
+	}
+	wsk[size] = value;
+	size++;
+}
+template <typename T>
+void table<T>::show()
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << wsk[i] << "\t";
+	}
+
+}
+
+template <typename T>
+void table<T>::rem()
+{
+	size = 0;
+	capacity = 1;
+	delete wsk;
+
+}
+template <typename T>
+void table<T>::chan(int index,T value)
+{
+	if (index > size)
+	{
+		cout << "No items" << endl;
+	}
+	else 
+	{
+		wsk[index] = value;
+	}
+
+}
+template <typename T>
+void table<T>::bubble()
+{
+	for (int i = 0; i < size; i++) {
+		for (int j = 1; j < size - i; j++) { 
+			if (wsk[j - 1] > wsk[j]) {
+				swap(wsk[j - 1], wsk[j]);
+			}
+		}
+	}
+
+}
+
+int main()
+{
+	table<int>* arr = new table<int>;
+	arr->add_value(2);
+	arr->add_value(12);
+	arr->add_value(8);
+	//arr->chan(8, 7);
+	//arr->rem();
+	arr->bubble();
+	arr->show();
+
+}
