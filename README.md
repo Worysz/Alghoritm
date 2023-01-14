@@ -1,4 +1,5 @@
-<h3> Hi  </h3> this is respository with algorithms in c++
+<h3> Hi everyone ! </h3> <br>
+<h1>This is respository with algorithms in c++</h1>
 
 Included list of algorithms : <br>
 1.Binary Heap <br>
