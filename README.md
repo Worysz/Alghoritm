@@ -1,2 +1,1 @@
-# Alghoritm
- Algorithms of c++
+Hi this is respository with algorithms in c++
