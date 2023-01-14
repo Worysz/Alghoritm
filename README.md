@@ -2,8 +2,9 @@
 <h1>This is respository with algorithms in c++</h1>
 
 Included list of algorithms : <br>
-1.Binary Heap <br>
-2.Bucket sort <br>
-3.Counting sort <br>
-4.Heap sort <br>
-5.Dynamic array
+<ol>
+  <li> Binary Heap <br> </li>
+  <li> Bucket sort <br> </li>
+  <li> Counting sort <br> </li>
+  <li> Heap sort <br> </li>
+  <li>Dynamic array </li>
