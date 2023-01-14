@@ -1,6 +1,5 @@
 <h3> Hi everyone ! </h3> <br>
 <h1>This is respository with algorithms in c++</h1>
-<center>
 Included list of algorithms : <br>
 <ol>
   <li> Binary Heap <br> </li>
@@ -8,4 +7,3 @@ Included list of algorithms : <br>
   <li> Counting sort <br> </li>
   <li> Heap sort <br> </li>
   <li>Dynamic array </li>
-</center>
