@@ -1,0 +1,106 @@
+#include <complex> 
+#define _USE_MATH_DEFINES
+#include "math.h"
+#include <iostream>
+
+using namespace std;
+complex<double>* dft(double * , int );
+complex<double>* fft(double * , int );
+
+int main()
+{
+    const int MAX_ORDER = 4; 
+    const bool PRINT_COEFS = false; // przelacznik do ewentualnego wypisu na ekran rezultatow DFT , FFT5
+    
+    for (int o = 1; o <= MAX_ORDER; o++)
+    {
+        const int N = 1 << o;
+        printf("N: % i \n", N);
+        double* f = new double[N];
+
+        for (int n = 0; n < N; n++)
+            f[n] = n / (double)N; 
+            // f[n] = n * n / ((double)N*(double)N);
+        clock_t t1 = clock();
+        complex < double >* cDFT = dft(f, N);
+        clock_t t2 = clock();
+
+        double dft_time = (t2 - t1) / (double)CLOCKS_PER_SEC * 1000.0;
+        printf("DFT time[ms] : % f \n", dft_time);
+      
+        clock_t t3 = clock();
+        complex < double >* cFFT = fft(f, N);
+        clock_t t4 = clock();
+
+        double fft_time = (t4 - t3) / (double)CLOCKS_PER_SEC * 1000.0;
+        printf("FFT time[ms] : % f \n", fft_time);
+        
+
+        for (int i = 0; i < N; i++) {
+            cout <<"i = "<< i<<"    real / Imag DFT" << cDFT[i].real() <<"      "   << cDFT[i].imag() << endl;
+            cout <<"i = "<< i<<"    real / Imag FFT" << cFFT[i].real()<<"       "   << cFFT[i].imag() << endl;
+        }
+
+             
+        delete[] f;
+        delete[] cDFT;
+    }
+    return 0;
+}
+
+complex<double>* dft(double* f, int N)
+{
+    complex<double>* c = new complex<double>[N];    
+    for (int k = 0; k < N; k++)
+    {
+        c[k] = complex<double>(0, 0);
+        for (int n = 0; n < N; n++)
+        {
+            double angle = 2 * M_PI * n * k / N;
+            c[k] += f[n] * complex<double>(cos(angle), -sin(angle));
+
+        }
+        
+    }
+    return c;
+}
+
+
+complex<double>* fft(double* f, int N)
+{
+    complex<double>* c = new complex<double>[N];
+
+    if (N == 1)
+    {
+        c[0] = complex<double>(f[0], 0);    //zwrót c na 0,0
+        return c;
+    }
+
+    double* f_even = new double[N / 2];
+    double* f_odd = new double[N / 2];
+
+    for (int i = 0; i < N / 2; i++) // ustawienie wartości 
+    {
+        f_even[i] = f[2 * i];
+        f_odd[i] = f[2 * i + 1];
+    }
+
+    complex<double>* c_even = fft(f_even, N / 2);
+    complex<double>* c_odd = fft(f_odd, N / 2);
+  
+
+    for (int k = 0; k < N / 2; k++) // to samo co w DFT wyliczanie kątów , oraz ustawienie ck 
+    {
+        double angle = 2 * M_PI * k / N;
+        complex<double> wn = complex<double>(cos(angle), -sin(angle));
+        c[k] = c_even[k] + wn * c_odd[k];
+        c[k + N / 2] = c_even[k] - wn * c_odd[k];
+    }
+   
+
+    delete[] f_even;
+    delete[] f_odd;
+    delete[] c_even;
+    delete[] c_odd;
+    return c;
+}
