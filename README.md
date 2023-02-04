@@ -7,3 +7,5 @@ Included list of algorithms : <br>
   <li> Counting sort <br> </li>
   <li> Heap sort <br> </li>
   <li>Dynamic array </li>
+  <li> Fast Fourier transform</li>
+  <li> Discrete Fourier transform </li>
